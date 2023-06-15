@@ -51,13 +51,19 @@ while True:
         while "\r\n\r\n" not in request:
             request += cl.recv(1024)
         
+        #request += cl.recv(1024)
+        print(request)
+        
         request = request.decode("utf-8")
         
-        if request.find('POST /') == 0:
+        if request.find('POST /') != -1:
+            request += str(cl.recv(1024))
             # Extract JSON data from request body
             body_start = request.find('{')
             body_end = request.find('}', body_start)
             json_data = request[body_start:body_end + 1]
+            print(body_start)
+            print(body_end)
             print(json_data)
             data = json.loads(json_data)
 
@@ -76,7 +82,7 @@ while True:
                 "message": "Data received successfully"
             }
             response_code = 'HTTP/1.0 200 OK\r\nContent-type: application/json\r\n\r\n'
-        elif request.find('GET /') == 0:
+        elif request.find('GET /') != -1:
             response_data = {
                 "address": addr[0],
                 "label": label,
