@@ -7,7 +7,8 @@ from machine import Pin
 
 led = Pin("LED", Pin.OUT)
 
-
+ssid = 'Birdie - SH'
+password = 'JJCAAKhamis'
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
@@ -84,7 +85,7 @@ while True:
             response_code = 'HTTP/1.0 200 OK\r\nContent-type: application/json\r\n\r\n'
         elif request.find('GET /') != -1:
             response_data = {
-                "address": addr[0],
+                "address": status[0],
                 "label": label,
                 "color": color,
                 "pattern": pattern
